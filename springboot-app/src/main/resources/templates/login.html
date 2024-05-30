@@ -2,20 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>GFG</title>
+    <title>hii</title>
 </head>
 <body>
-<h1>Register Geek</h1>
+<h1>Login Page</h1>
 
-<form method="POST" th:action="@{/jdbc}" th:object="${obj}">
+<h3> <th:text>="${username}"</th:text>Username</h3>
 
-    <label for="username">Username: </label><br/>
-    <input type="text" th:field="*{username}"/><br/>
 
-    <label for="password">Password: </label><br/>
-    <input type="password" th:field="*{password}"/><br/>
-    <input type="submit" value="Register"/>
-
-</form>
 </body>
 </html>
