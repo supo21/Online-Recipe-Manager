@@ -25,4 +25,12 @@ public class RecipeDetails {
     @Column(columnDefinition = "LONGTEXT")
     private String image;
     
+    // @Override
+	// public String toString() {
+	// 	return "Product [id=" + recipe_id + ", name=" + recipe_name + ", description=" 
+	//             + recipe_description + ",  image="
+	// 			+ image + "]";
+	// }
+	
+
 }

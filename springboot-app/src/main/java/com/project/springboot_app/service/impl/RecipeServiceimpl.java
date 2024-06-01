@@ -1,7 +1,9 @@
 package com.project.springboot_app.service.impl;
 
 import java.util.Base64;
+import java.util.List;
 
+//import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -51,5 +53,8 @@ public class RecipeServiceimpl implements RecipeService {
         r.setRecipe_preparation(recipe_preparation);
 
         return recipeDetailsRepository.save(r);
+    }
+    public List<RecipeDetails> getAllRecipe(){
+        return  recipeDetailsRepository.findAll();
     }
 }
