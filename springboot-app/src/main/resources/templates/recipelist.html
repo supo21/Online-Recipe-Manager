@@ -14,16 +14,7 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/recipes}">Recipe Management</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/students}">Student Management</a>
-      </li>
-    </ul>
-  </div>
+  
 </nav>
 
 <div class="container">
@@ -45,19 +36,23 @@
                 <th>Image</th>
                 <th>Actions</th>
             </tr>
-        </thead>image, recipe_id, recipe_name, recipe_description, recipe_preparation);
+        </thead>
         <tbody>
+            
             <tr th:each="recipe : ${recipeItems}">
                 <td th:text="${recipe.recipe_id}"></td>
                 <td th:text="${recipe.recipe_name}"></td>
                 <td th:text="${recipe.recipe_description}"></td>
                 <td th:text="${recipe.recipe_preparation}"></td>
-                <!-- <td><img th:src="'data:image/jpeg;base64,' + ${recipe.image}" style="width: 100px; height: 100px;"/></td>
-                <td>
-                    <a th:href="@{/recipes/edit/{id}(id=${recipe.id})}" class="btn btn-primary">Update</a>
-                    <a th:href="@{/recipes/{id}(id=${recipe.id})}" class="btn btn-danger">Delete</a>
-                </td> -->
+                <td><img th:src="'data:image/jpeg;base64,' + ${recipe.image}" style="width: 250px; height: 250px;"/>
+                </td>
+                 <td>
+                    <a th:href="@{/recipes/edit/{id}(id=${recipe.recipe_id})}" class="btn btn-primary">Update</a>
+                    <a th:href="@{/recipes/{id}(id=${recipe.recipe_id})}" class="btn btn-danger">Delete</a>
+                </td> 
             </tr>
+           
+              </tr>
         </tbody>
     </table>
 </div>

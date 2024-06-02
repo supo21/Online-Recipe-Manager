@@ -21,7 +21,7 @@ public class RecipeServiceimpl implements RecipeService {
    // private RecipeRepository recipeRepository;
 
     @Autowired
-    private RecipeDetailsRepository recipeDetailsRepository;
+    public RecipeDetailsRepository recipeDetailsRepository;
      // @Override
     // public Recipe create(Recipe recipe) {
        

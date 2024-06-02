@@ -16,7 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 //import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestParam;
 //mport org.springframework.web.bind.annotation.RestController;
@@ -39,17 +39,11 @@ public class RecipeController {
      RecipeService recipeService;
 
 
-    @GetMapping("/")
+   @GetMapping("/")
     public String index(){
         return"admin";
     }
-  //  @Controller
-  @GetMapping("/checker")
-    public String hello(Model model){
- model.addAttribute("message", "hello thyme leaf1");
- return "checker";
-      
-    }
+ 
 
    @PostMapping("/save_recipe")
     public ResponseEntity<RecipeDetails> saveRecipe(@RequestParam("image") MultipartFile image,
@@ -64,13 +58,13 @@ public class RecipeController {
       RecipeDetails savedRecipe = recipeService.saveRecipe(image, recipe_id, recipe_name, recipe_description, recipe_preparation);
     System.out.println(recipe_id);
 
-    // Add attributes to the model
-    model.addAttribute("recipe", savedRecipe);
+   // Add attributes to the model
+   model.addAttribute("recipe", savedRecipe);
 
-   // You can add other necessary attributes as well
-    //For example, if you want to pass a list of all recipes
+   //You can add other necessary attributes as well
+   // For example, if you want to pass a list of all recipes
     List<RecipeDetails> allRecipes = recipeService.getAllRecipe();
-    model.addAttribute("recipeItems", allRecipes);
+   model.addAttribute("recipeItems", allRecipes);
 
     // Create a URI for redirection (you can include additional query parameters if necessary)
     URI location = UriComponentsBuilder.fromPath("/recipelist")
