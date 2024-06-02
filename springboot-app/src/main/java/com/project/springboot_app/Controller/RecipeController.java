@@ -6,6 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 //import org.springframework.http.HttpStatus;
 //import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -39,47 +41,47 @@ public class RecipeController {
     public String index(){
         return"admin";
     }
-  //  @PostMapping("/save_recipe")
-  //   public ResponseEntity<RecipeDetails> saveRecipe(@RequestParam("image") MultipartFile image,
-  //  @RequestParam("id") int recipe_id,
-  //  @RequestParam("name") String recipe_name,
-  //  @RequestParam("desc") String recipe_description,
-  //  @RequestParam("prep") String recipe_preparation){
-  //    // return recipeService.saveRecipe(image, recipe_id, recipe_name, recipe_description,recipe_preparation);
-  //     RecipeDetails savedRecipe = recipeService.saveRecipe(image, recipe_id,recipe_name, recipe_description, recipe_preparation);
-  //     System.out.println(recipe_id); 
-  //     return ResponseEntity.status(HttpStatus.FOUND)
+   @PostMapping("/save_recipe")
+    public ResponseEntity<RecipeDetails> saveRecipe(@RequestParam("image") MultipartFile image,
+   @RequestParam("id") int recipe_id,
+   @RequestParam("name") String recipe_name,
+   @RequestParam("desc") String recipe_description,
+   @RequestParam("prep") String recipe_preparation){
+     // return recipeService.saveRecipe(image, recipe_id, recipe_name, recipe_description,recipe_preparation);
+      RecipeDetails savedRecipe = recipeService.saveRecipe(image, recipe_id,recipe_name, recipe_description, recipe_preparation);
+      System.out.println(recipe_id); 
+      return ResponseEntity.status(HttpStatus.FOUND)
 
-  //           .header("Location", "listrecipe")
-  //           .body(savedRecipe);
-  //  // return ResponseEntity.ok(savedRecipe);
+            .header("Location", "listrecipe")
+            .body(savedRecipe);
+   // return ResponseEntity.ok(savedRecipe);
 
-  //  }
-  @PostMapping("/save_recipe")
-public String saveRecipe(@RequestParam("image") MultipartFile image,
-                         @RequestParam("id") int recipe_id,
-                         @RequestParam("name") String recipe_name,
-                         @RequestParam("desc") String recipe_description,
-                         @RequestParam("prep") String recipe_preparation,
-                         Model model) {
-    // Save the recipe using the service
-   // RecipeDetails savedRecipe = recipeService.saveRecipe(image, recipe_id, recipe_name, recipe_description, recipe_preparation);
+   }
+//   @PostMapping("/save_recipe")
+// public String saveRecipe(@RequestParam("image") MultipartFile image,
+//                          @RequestParam("id") int recipe_id,
+//                          @RequestParam("name") String recipe_name,
+//                          @RequestParam("desc") String recipe_description,
+//                          @RequestParam("prep") String recipe_preparation,
+//                          Model model) {
+//     // Save the recipe using the service
+//    // RecipeDetails savedRecipe = recipeService.saveRecipe(image, recipe_id, recipe_name, recipe_description, recipe_preparation);
     
     
-    System.out.println(recipe_id);
+//     System.out.println(recipe_id);
     
    
-    // model.addAttribute("savedRecipe", savedRecipe);
+//     // model.addAttribute("savedRecipe", savedRecipe);
     
-    // // Redirecting to the desired HTML page
-    // return "listrecipe";
-    List<RecipeDetails> recipeItems = recipeService.getAllRecipe();
-    model.addAttribute("recipeItems", recipeItems);
-  System.out.println("i am here okayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
-    // Redirecting to the desired HTML page
-    return "redirect:/recipelist";
+//     // // Redirecting to the desired HTML page
+//     // return "listrecipe";
+//     List<RecipeDetails> recipeItems = recipeService.getAllRecipe();
+//     model.addAttribute("recipeItems", recipeItems);
+//   System.out.println("i am here okayyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+//     // Redirecting to the desired HTML page
+//     return "redirect:/recipelist";
 
-}
+// }
 //RequestMapping("/recipelist")
 @GetMapping("/recipelist")
     public String getRecipes(Model model) {
