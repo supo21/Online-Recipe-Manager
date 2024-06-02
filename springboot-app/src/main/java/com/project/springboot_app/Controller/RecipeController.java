@@ -1,5 +1,6 @@
 package com.project.springboot_app.Controller;
 
+import java.net.URI;
 import java.util.List;
 
 //import org.hibernate.engine.jdbc.env.internal.LobCreationLogging_.logger;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //mport org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriComponentsBuilder;
 
 //import com.project.springboot_app.Model.Recipe;
 import com.project.springboot_app.Model.RecipeDetails;
@@ -41,19 +43,48 @@ public class RecipeController {
     public String index(){
         return"admin";
     }
+  //  @Controller
+  @GetMapping("/checker")
+    public String hello(Model model){
+ model.addAttribute("message", "hello thyme leaf1");
+ return "checker";
+      
+    }
+
    @PostMapping("/save_recipe")
     public ResponseEntity<RecipeDetails> saveRecipe(@RequestParam("image") MultipartFile image,
    @RequestParam("id") int recipe_id,
    @RequestParam("name") String recipe_name,
    @RequestParam("desc") String recipe_description,
-   @RequestParam("prep") String recipe_preparation){
+   @RequestParam("prep") String recipe_preparation,
+   Model model){
      // return recipeService.saveRecipe(image, recipe_id, recipe_name, recipe_description,recipe_preparation);
-      RecipeDetails savedRecipe = recipeService.saveRecipe(image, recipe_id,recipe_name, recipe_description, recipe_preparation);
-      System.out.println(recipe_id); 
-      return ResponseEntity.status(HttpStatus.FOUND)
+     // RecipeDetails savedRecipe = recipeService.saveRecipe(image, recipe_id,recipe_name, recipe_description, recipe_preparation);
+     // System.out.println(recipe_id); 
+      RecipeDetails savedRecipe = recipeService.saveRecipe(image, recipe_id, recipe_name, recipe_description, recipe_preparation);
+    System.out.println(recipe_id);
 
-            .header("Location", "listrecipe")
-            .body(savedRecipe);
+    // Add attributes to the model
+    model.addAttribute("recipe", savedRecipe);
+
+   // You can add other necessary attributes as well
+    //For example, if you want to pass a list of all recipes
+    List<RecipeDetails> allRecipes = recipeService.getAllRecipe();
+    model.addAttribute("recipeItems", allRecipes);
+
+    // Create a URI for redirection (you can include additional query parameters if necessary)
+    URI location = UriComponentsBuilder.fromPath("/recipelist")
+                                       .build()
+                                       .toUri();
+
+    return ResponseEntity.status(HttpStatus.FOUND)
+                         .location(location)
+                         .body(savedRecipe);
+      // return ResponseEntity.status(HttpStatus.FOUND)
+
+      //       .header("Location", "recipelist")
+      //       .body(savedRecipe);
+            
    // return ResponseEntity.ok(savedRecipe);
 
    }
@@ -88,10 +119,12 @@ public class RecipeController {
       logger.info("Fetching all recipes");
         List<RecipeDetails> recipeItems = recipeService.getAllRecipe();
         logger.info("Number of recipes found: {}", recipeItems.size());
+        System.out.println("i am herereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
         model.addAttribute("recipeItems", recipeItems);
 
         return "recipelist";
     }
+   
 
 
 
