@@ -18,6 +18,7 @@ import com.project.springboot_app.service.RecipeService;
 public class RecipeServiceimpl implements RecipeService {
 
    // @Autowired
+   // RecipeDetails recipeDetails;
    // private RecipeRepository recipeRepository;
 
     @Autowired
@@ -57,4 +58,33 @@ public class RecipeServiceimpl implements RecipeService {
     public List<RecipeDetails> getAllRecipe(){
         return  recipeDetailsRepository.findAll();
     }
+    @Override
+    public void deleterecipeById( Integer recipe_id) {
+       
+       recipeDetailsRepository.deleteById(recipe_id);
+    }
+
+    public RecipeDetails getRecipeById(Integer id) {
+        return recipeDetailsRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Recipe not found"));
+    }
+
+    public void updaterecipeById(Integer id, RecipeDetails updatedRecipeDetails) {
+        RecipeDetails existingRecipe = recipeDetailsRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Recipe not found"));
+
+        existingRecipe.setRecipe_name(updatedRecipeDetails.getRecipe_name());
+        existingRecipe.setRecipe_description(updatedRecipeDetails.getRecipe_description());
+        existingRecipe.setRecipe_preparation(updatedRecipeDetails.getRecipe_preparation());
+
+        if (updatedRecipeDetails.getImage() != null && !updatedRecipeDetails.getImage().isEmpty()) {
+            existingRecipe.setImage(updatedRecipeDetails.getImage());
+        }
+
+        recipeDetailsRepository.save(existingRecipe);
+       
+    }
+  
+
+    
 }

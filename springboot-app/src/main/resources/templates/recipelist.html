@@ -4,9 +4,17 @@
 <meta charset="ISO-8859-1">
 <title>Recipe List</title>
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+<script>
+  function confirmDeletion(recipeId) {
+    if (confirm("Are you sure you want to delete this recipe?")) {
+        window.location.href = "/deleterecipe/" + recipeId;
+    }
+  }
+</script>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
@@ -14,7 +22,6 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
-  
 </nav>
 
 <div class="container">
@@ -23,7 +30,7 @@
     </div>
     <div class="row">
         <div class="col-lg-3">
-            <a th:href="@{/recipes/new}" class="btn btn-primary btn-sm mb-3">Add Recipe</a>
+            <a th:href="@{/addrecipe}" class="btn btn-primary btn-sm mb-3">Add Recipe</a>
         </div>
     </div>
     <table class="table table-striped table-bordered">
@@ -38,21 +45,17 @@
             </tr>
         </thead>
         <tbody>
-            
             <tr th:each="recipe : ${recipeItems}">
                 <td th:text="${recipe.recipe_id}"></td>
                 <td th:text="${recipe.recipe_name}"></td>
                 <td th:text="${recipe.recipe_description}"></td>
                 <td th:text="${recipe.recipe_preparation}"></td>
-                <td><img th:src="'data:image/jpeg;base64,' + ${recipe.image}" style="width: 250px; height: 250px;"/>
-                </td>
-                 <td>
-                    <a th:href="@{/recipes/edit/{id}(id=${recipe.recipe_id})}" class="btn btn-primary">Update</a>
-                    <a th:href="@{/recipes/{id}(id=${recipe.recipe_id})}" class="btn btn-danger">Delete</a>
+                <td><img th:src="'data:image/jpeg;base64,' + ${recipe.image}" style="width: 250px; height: 250px;"/></td>
+                <td>
+                    <a th:href="@{/recipe/{id}(id=${recipe.recipe_id})}" class="btn btn-primary">Update</a>
+                    <button th:onclick="'confirmDeletion(' + ${recipe.recipe_id} + ')'" class="btn btn-danger">Delete</button>
                 </td> 
             </tr>
-           
-              </tr>
         </tbody>
     </table>
 </div>

@@ -19,4 +19,9 @@ public interface RecipeService {
      public RecipeDetails saveRecipe(MultipartFile image, Integer recipe_id, String recipe_name, String recipe_description, String recipe_preparation);
 
      public List<RecipeDetails> getAllRecipe();
+
+    public void deleterecipeById(Integer recipe_id);
+
+    public void updaterecipeById(Integer recipe_id,RecipeDetails recipeDetails);
+    public RecipeDetails getRecipeById(Integer id);
 }

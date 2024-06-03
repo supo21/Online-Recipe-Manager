@@ -1,6 +1,8 @@
 package com.project.springboot_app.Controller;
 
+import java.io.IOException;
 import java.net.URI;
+import java.util.Base64;
 import java.util.List;
 
 //import org.hibernate.engine.jdbc.env.internal.LobCreationLogging_.logger;
@@ -14,6 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +47,44 @@ public class RecipeController {
     public String index(){
         return"admin";
     }
- 
+    @GetMapping("/addrecipe")
+    public String addrecipe(){
+      return "addrecipe";
+    }
+    @GetMapping("/deleterecipe/{recipe_id}")
+    public String delete(@PathVariable  Integer recipe_id,Model model){
+
+            recipeService.deleterecipeById(recipe_id);
+            List<RecipeDetails> allrecipe=recipeService.getAllRecipe();
+            model.addAttribute("recipeItems", allrecipe);
+            return "recipelist";
+    }
+
+
+    @GetMapping("/recipe/{id}")
+    public String showEditForm(@PathVariable Integer id, Model model) {
+        RecipeDetails recipe = recipeService.getRecipeById(id);
+        model.addAttribute("recipe", recipe);
+        return "editrecipe";
+    }
+
+    @PostMapping("/recipe/{id}")
+    public String updateRecipe(@PathVariable Integer id,
+                               @ModelAttribute RecipeDetails recipeDetails,
+                               @RequestParam("imageFile") MultipartFile imageFile,
+                               Model model) throws IOException {
+        if (!imageFile.isEmpty()) {
+            String base64Image = Base64.getEncoder().encodeToString(imageFile.getBytes());
+            recipeDetails.setImage(base64Image);
+        }
+        recipeService.updaterecipeById(id, recipeDetails);
+        model.addAttribute("recipeItems", recipeService.getAllRecipe());
+        return "recipelist";
+    }
+                                              
+
+                                               
+
 
    @PostMapping("/save_recipe")
     public ResponseEntity<RecipeDetails> saveRecipe(@RequestParam("image") MultipartFile image,
