@@ -51,6 +51,10 @@ public class RecipeController {
     public String addrecipe(){
       return "addrecipe";
     }
+    @GetMapping("/home")
+    public String home(){
+      return "home";
+    }
     @GetMapping("/deleterecipe/{recipe_id}")
     public String delete(@PathVariable  Integer recipe_id,Model model){
 
