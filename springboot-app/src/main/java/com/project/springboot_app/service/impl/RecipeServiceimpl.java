@@ -64,6 +64,17 @@ public class RecipeServiceimpl implements RecipeService {
        recipeDetailsRepository.deleteById(recipe_id);
     }
 
+    // public List<RecipeDetails> listAll(String keyword){
+    //     if(keyword!= null){
+    //         return recipeDetailsRepository.search(keyword);
+    //     }
+    // }
+
+    // @Override
+    // public List<RecipeDetails> searchRecipes(String searchText){
+    //     return recipeDetailsRepository.findRecipesBySearchText(searchText);
+    // }
+
     public RecipeDetails getRecipeById(Integer id) {
         return recipeDetailsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Recipe not found"));

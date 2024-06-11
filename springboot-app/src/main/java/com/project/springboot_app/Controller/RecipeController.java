@@ -2,8 +2,10 @@ package com.project.springboot_app.Controller;
 
 import java.io.IOException;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Random;
 
 //import org.hibernate.engine.jdbc.env.internal.LobCreationLogging_.logger;
 import org.slf4j.Logger;
@@ -43,7 +45,7 @@ public class RecipeController {
      RecipeService recipeService;
 
 
-   @GetMapping("/")
+   @GetMapping("/admin")
     public String index(){
         return"admin";
     }
@@ -51,10 +53,52 @@ public class RecipeController {
     public String addrecipe(){
       return "addrecipe";
     }
-    @GetMapping("/home")
-    public String home(){
+
+    @GetMapping("/fullrecipe/{recipe_id}")
+    public String fullrecipe(@PathVariable Integer recipe_id , Model model){
+        RecipeDetails recipe = recipeService.getRecipeById(recipe_id);
+        model.addAttribute("recipe", recipe);
+        return "fullrecipe";
+    }
+
+    @GetMapping("/")
+    public String home(Model model){
+      List<RecipeDetails> allrecipe=recipeService.getAllRecipe();
+      Random randomRecipe = new Random();
+      
+      List<RecipeDetails> randomrecipe = new ArrayList<>();
+      
+      int i = randomRecipe.nextInt(allrecipe.size());
+      int j = randomRecipe.nextInt(allrecipe.size());
+      while(j == i){
+        j = randomRecipe.nextInt(allrecipe.size());
+      }
+      int k = randomRecipe.nextInt(allrecipe.size());
+      while(k == i | k == j){
+        k = randomRecipe.nextInt(allrecipe.size());
+      }
+      randomrecipe.add(allrecipe.get(i));
+      randomrecipe.add(allrecipe.get(j));
+      randomrecipe.add(allrecipe.get(k));
+
+      
+      
+      model.addAttribute("recipeItems", randomrecipe);
       return "home";
     }
+
+    // @GetMapping("/search")
+    // public ResponseEntity<List<RecipeDetails>> searchRecipes(@RequestParam String searchText) {
+    //     List<RecipeDetails> foundRecipes = recipeService.searchRecipes(searchText);
+    //     if(!foundRecipes.isEmpty()){
+    //       return ResponseEntity.ok(foundRecipes);
+    //     }else{
+    //       return ResponseEntity.noContent().build();
+    //     }
+    // }
+   
+
+
     @GetMapping("/deleterecipe/{recipe_id}")
     public String delete(@PathVariable  Integer recipe_id,Model model){
 
