@@ -50,9 +50,9 @@
               <button class="btn btn-outline-success" type="submit">Search</button><hr>
             </form>
             
-            <a th:if="${is_authenticated}" href="/logout" class="btn btn-outline-success" type="submit" >Logout</a>
+            <a th:if="${session.is_authenticated}" href="/logout" class="btn btn-outline-success" type="submit" >Logout</a>
             
-            <a th:if="not${is_authenticated}" href="/login" class="btn btn-outline-success" type="submit" >Login</a>
+            <a th:if="not${session.is_authenticated}" href="/login" class="btn btn-outline-success" type="submit" >Login</a>
             
           </div>
         </div>
