@@ -24,4 +24,5 @@ public interface RecipeService {
 
     public void updaterecipeById(Integer recipe_id,RecipeDetails recipeDetails);
     public RecipeDetails getRecipeById(Integer id);
+    // List<RecipeDetails> searchRecipes(String searchText);
 }

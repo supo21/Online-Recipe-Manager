@@ -51,7 +51,7 @@ public String authenticateUser(@ModelAttribute("loginForm") Recipe loginForm,Mod
     
     if (authenticatedUser) {
     model.addAttribute("recipeItems",allrecipe);
-        return "recipelist"; //admin page
+        return "home"; //admin page
     } else {
        // model.addAttribute("error", "Invalid username or password");
         return "unsucess"; 
