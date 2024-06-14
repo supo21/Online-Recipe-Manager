@@ -35,9 +35,9 @@
               <button class="btn btn-outline-success" type="submit">Search</button><hr>
             </form>
             
-            <a th:if="${is_authenticated}" href="/logout" class="btn btn-outline-success" type="submit" >Logout</a>
+            <a th:if="${session.is_authenticated}" href="/logout" class="btn btn-outline-success" type="submit" >Logout</a>
             
-            <a th:if="not${is_authenticated}" href="/login" class="btn btn-outline-success" type="submit" >Login</a>
+            <a th:if="not${session.is_authenticated}" href="/login" class="btn btn-outline-success" type="submit" >Login</a>
             
           </div>
         </div>
@@ -66,8 +66,8 @@
         <p th:text="${recipe.recipe_description}"></p>
         <p th:text="${recipe.recipe_preparation}" style="white-space: pre-wrap;"></p>
         
-        <a th:if="${is_authenticated}" href = "/delete-recipe/{{full_recipe.id}}" class = "btn btn-danger m-2">Delete</a>
-        <a th:if="${is_authenticated}" href = "/update-recipe/{{full_recipe.id}}" class = "btn btn-success">Update</a>
+        <a th:if="${session.is_authenticated}" th:href="@{/deleterecipe/{id}(id=${recipe.recipe_id})}" class = "btn btn-danger m-2">Delete</a>
+        <a th:if="${session.is_authenticated}" th:href="@{/recipe/{id}(id=${recipe.recipe_id})}" class = "btn btn-success">Update</a>
         
     </div>
     </div>

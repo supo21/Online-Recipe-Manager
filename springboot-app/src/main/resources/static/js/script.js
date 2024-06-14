@@ -9,3 +9,8 @@ const search=()=>{
         
     }
 }
+
+const is_authenticated=()=>{
+     is_authenticated = fetchingService.authenticate(loginForm.getId(),loginForm.getUsername(), loginForm.getPassword());
+     return is_authenticated;
+}

@@ -51,6 +51,7 @@ public class RecipeController {
     }
     @GetMapping("/addrecipe")
     public String addrecipe(){
+      
       return "addrecipe";
     }
 
@@ -169,6 +170,7 @@ public class RecipeController {
       //       .body(savedRecipe);
             
    // return ResponseEntity.ok(savedRecipe);
+
 
    }
 //   @PostMapping("/save_recipe")
