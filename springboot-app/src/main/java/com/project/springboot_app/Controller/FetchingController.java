@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +22,12 @@ import com.project.springboot_app.Model.Recipe;
 import com.project.springboot_app.Model.RecipeDetails;
 import com.project.springboot_app.service.FetchingService;
 import com.project.springboot_app.service.RecipeService;
+
+
+import jakarta.servlet.http.HttpSession;
+
 //import com.project.springboot_app.service.RecipeService;
+//import javax.servlet.http.HttpSession;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -34,14 +43,18 @@ public class FetchingController {
      RecipeDetails recipeDetails;
 
 
-
+   
     @GetMapping("/login")
     public String index(){
         return"index";
     }
 
+
     @GetMapping("/logout")
     public String logout(HttpSession session ,Model model){
+=======
+   
+
             session.removeAttribute("is_authenticated");
             List<RecipeDetails> allrecipe=recipeService.getAllRecipe();
       Random randomRecipe = new Random();
@@ -64,14 +77,23 @@ public class FetchingController {
       
       
       model.addAttribute("recipeItems", randomrecipe);
+
       return "home";}
+=======
+          
+    
+
    
 
 //    public Recipe saveRecipe(@RequestParam Recipe recipe){
 //       return recipeService.create(recipe);
 //     }
 @PostMapping("/admin")
+
 public String authenticateUser(@ModelAttribute("loginForm") Recipe loginForm,Model model, HttpSession session) {
+=======
+
+
     boolean authenticatedUser = fetchingService.authenticate(loginForm.getId(),loginForm.getUsername(), loginForm.getPassword());
    // List<RecipeDetails>=  recipeDetailsRepository.findAll();
     
@@ -80,11 +102,17 @@ public String authenticateUser(@ModelAttribute("loginForm") Recipe loginForm,Mod
     System.out.println("value of all recipe is "+allrecipe);
     
     if (authenticatedUser) {
+
         session.setAttribute("is_authenticated", true);
+
+        
+           
+
+
     model.addAttribute("recipeItems",allrecipe);
-        return "home"; //admin page
+        return "recipelist"; //admin page
     } else {
-       // model.addAttribute("error", "Invalid username or password");
+        session.setAttribute("is_authenticated", false);
         return "unsucess"; 
     }
 }
